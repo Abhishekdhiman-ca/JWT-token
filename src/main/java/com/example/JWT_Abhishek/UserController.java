@@ -1,6 +1,5 @@
 package com.example.JWT_Abhishek;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,9 @@ public class UserController {
     private JWTUtil jwtUtil;
 
     @GetMapping("/")
-    public String loginPage() {
+    public String loginPage(HttpSession session) {
+        // Invalidate any existing session to ensure fresh start
+        session.invalidate();
         return "login";
     }
 
@@ -30,7 +31,7 @@ public class UserController {
             return "login";
         }
 
-        if (!isValidEmailAddress(email)) {
+        if (isValidEmailAddress(email)) {
             model.addAttribute("error", "Please provide a valid email address");
             return "login";
         }
@@ -50,12 +51,13 @@ public class UserController {
             model.addAttribute("error", "Invalid email or password");
             return "login";
         }
-
         return "redirect:/login?error";
     }
 
     @GetMapping("/signup")
-    public String signupPage() {
+    public String signupPage(HttpSession session) {
+        // Invalidate any existing session to ensure fresh start
+        session.invalidate();
         return "signup";
     }
 
@@ -66,7 +68,7 @@ public class UserController {
             return "redirect:/signup";
         }
 
-        if (!isValidEmailAddress(email)) {
+        if (isValidEmailAddress(email)) {
             redirectAttributes.addFlashAttribute("error", "Please provide a valid email address");
             return "redirect:/signup";
         }
@@ -116,9 +118,9 @@ public class UserController {
         }
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();
+        session.invalidate(); // Invalidate the session to clear all attributes
         return "redirect:/";
     }
 
@@ -126,6 +128,6 @@ public class UserController {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
+        return !m.matches();
     }
 }

@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>User Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+        .content-container {
+            background: #ffffff;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .content-container h1 {
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: #007bff;
+        }
+        .content-container button {
+            font-size: 1.2rem;
+            padding: 0.6rem;
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome User!</h1>
+<div class="content-container">
+    <h1>Welcome User!</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger btn-block">Logout</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
