@@ -35,6 +35,22 @@ public class UserController {
         return "redirect:/login?error";
     }
 
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public String signupUser(User user, RedirectAttributes redirectAttributes) {
+        if (userRepository.findByEmail(user.getEmail()) == null) {
+            userRepository.save(user);
+            String token = jwtUtil.generateToken(user.getEmail());
+            redirectAttributes.addAttribute("token", token);
+            return "redirect:/user-detail";
+        }
+        return "redirect:/signup?error";
+    }
+
     @GetMapping("/user-detail")
     public String userDetail(Model model, HttpServletRequest request) {
         String token = request.getParameter("token");
