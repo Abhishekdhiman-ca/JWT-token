@@ -38,6 +38,10 @@
             height: 45px;
             font-size: 1rem;
         }
+        .signup-container .redirect-link {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +66,12 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
     </form>
+    <div class="redirect-link">
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
 </div>
 
 <!-- Bootstrap JS and dependencies -->

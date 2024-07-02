@@ -38,6 +38,10 @@
             height: 45px;
             font-size: 1rem;
         }
+        .login-container .redirect-link {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -52,9 +56,14 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <input type="hidden" id="token" name="token" th:value="${token}">
         <button type="submit" class="btn btn-primary btn-block">Login</button>
     </form>
+    <div class="redirect-link">
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <span th:text="${error}"></span>
+    </div>
 </div>
 
 <!-- Bootstrap JS and dependencies -->
